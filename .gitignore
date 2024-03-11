@@ -1,0 +1,7 @@
+frontend/node_modules
+backend/api/node_modules
+backend/auth/node_modules
+backend/user/node_modules
+backend/movie/node_modules
+backend/log
+backend/data

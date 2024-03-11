@@ -1,0 +1,137 @@
+version: "3.8"
+
+services:
+    ####################################
+    ## Service Name: rdbms            ##
+    ## Environemnt File: .env         ##
+    ####################################
+    rdbms:
+        image: mysql:latest
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        networks:
+            - network
+        ports:
+            - "3310:3306"
+        volumes:
+            - ./backend/data:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 10s
+            retries: 10
+
+        ####################################
+    ## Service Name: gateway          ##
+    ####################################
+    api-gateway:
+        build:
+            context: ./backend/gateway
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        networks:
+            - network
+        volumes:
+            - ./backend/log:/var/log/
+            - ./backend/log/nginx:/var/log/nginx
+        depends_on:
+            - auth-service
+            - api-service
+            - user-service
+            - movie-service
+
+    ####################################
+    ## Service Name: auth             ##
+    ####################################
+    auth-service:
+        build:
+            context: ./backend/auth
+            dockerfile: Dockerfile
+        environment:
+            ENV: ${ENV}
+        networks:
+            - network
+        volumes:
+            - ./backend/auth/src:/usr/src/app/src
+            - ./backend/log:/usr/src/app/log
+        depends_on:
+            rdbms:
+                condition: service_healthy
+
+    ####################################
+    ## Service Name: api              ##
+    ####################################
+    api-service:
+        build:
+            context: ./backend/api
+            dockerfile: Dockerfile
+        environment:
+            ENV: ${ENV}
+        networks:
+            - network
+        volumes:
+            - ./backend/api/src:/usr/src/app/src
+        depends_on:
+            rdbms:
+                condition: service_healthy
+
+        ####################################
+    ## Service Name: user             ##
+    ####################################
+
+    movie-service:
+        build:
+            context: ./backend/movie
+            dockerfile: Dockerfile
+        environment:
+            ENV: ${ENV}
+        networks:
+            - network
+        ports:
+            - "3012:3000"
+        volumes:
+            - ./backend/movie/src:/usr/src/app/src
+        depends_on:
+            rdbms:
+                condition: service_healthy
+
+    ####################################
+    ## Service Name: user             ##
+    ####################################
+    user-service:
+        build:
+            context: ./backend/user
+            dockerfile: Dockerfile
+        environment:
+            ENV: ${ENV}
+        networks:
+            - network
+        ports:
+            - "8080:3000"
+        volumes:
+            - ./backend/user/src:/usr/src/app/src
+            - ./backend/log:/usr/src/app/log
+        depends_on:
+            rdbms:
+                condition: service_healthy
+
+        ####################################
+    ## Service Name: frontend react          ##
+    ####################################
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        ports:
+            - "3000:80"
+        depends_on:
+            - api-gateway
+
+networks:
+    network:
+        driver: bridge
