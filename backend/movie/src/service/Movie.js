@@ -91,40 +91,45 @@ class MovieService extends Service {
             let finalRows = [];
 
             for (let el of result.rows) {
-                const like = await Like.findOne({
-                    where: {
-                        movieId: parseInt(el.id),
-                        userId: parseInt(userId),
-                    },
-                });
+                if (userId) {
+                    const like = await Like.findOne({
+                        where: {
+                            movieId: parseInt(el.id),
+                            userId: parseInt(userId),
+                        },
+                    });
 
-                const totalLikes = await Like.findAll({
-                    where: {
-                        movieId: parseInt(el.id)
-                    },
-                });
+                    if (like) {
+                        el.dataValues.liked = true;
+                    } else {
+                        el.dataValues.liked = false;
+                    }
 
-                const favourite = await Favourite.findOne({
-                    where: {
-                        movieId: parseInt(el.id),
-                        userId: parseInt(userId),
-                    },
-                });
+                    const favourite = await Favourite.findOne({
+                        where: {
+                            movieId: parseInt(el.id),
+                            userId: parseInt(userId),
+                        },
+                    });
 
-                if(totalLikes.length > 0) {
-                      el.likes = totalLikes.length
-                }
-
-                if (favourite) {
-                    el.dataValues.favourite = true;
+                    if (favourite) {
+                        el.dataValues.favourite = true;
+                    } else {
+                        el.dataValues.favourite = false;
+                    }
                 } else {
+                    el.dataValues.liked = false;
                     el.dataValues.favourite = false;
                 }
 
-                if (like) {
-                    el.dataValues.liked = true;
-                } else {
-                    el.dataValues.liked = false;
+                const totalLikes = await Like.findAll({
+                    where: {
+                        movieId: parseInt(el.id),
+                    },
+                });
+
+                if (totalLikes.length > 0) {
+                    el.likes = totalLikes.length;
                 }
 
                 finalRows.push(el);
