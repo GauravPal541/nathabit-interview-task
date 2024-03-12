@@ -1,72 +1,73 @@
 services:
   - name: rdbms
-    env: .env
-    image: mysql:latest
-    plan: starter
-    ports:
-      - 3310
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    volumes:
-      - source: ./backend/data
-        destination: /var/lib/mysql
-    healthCheck:
-      httpGet:
-        path: /healthcheck
-        port: 3306
-      intervalSeconds: 10
-      timeoutSeconds: 5
+    type: database
+    env:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: nathabit_db
+      - key: MYSQL_USER
+        value: nathabit_db_user
+      - key: nathabit@123
+        generateValue: true
 
   - name: api-gateway
-    env: .env
-    dockerfilePath: ./backend/gateway/Dockerfile
-    plan: starter
-    ports:
-      - 80
-    dependencies:
-      - rdbms
+    type: web
+    buildCommand: docker-compose build api-gateway
+    startCommand: docker-compose up api-gateway
+    healthCheckPath: / # Adjust this according to your application
 
   - name: auth-service
-    env: .env
-    dockerfilePath: ./backend/auth/Dockerfile
-    plan: starter
-    dependencies:
-      - rdbms
+    type: web
+    buildCommand: docker-compose build auth-service
+    startCommand: docker-compose up auth-service
+    healthCheckPath: / # Adjust this according to your application
+    env:
+      - key: ENV
+        value: ${ENV}
 
   - name: api-service
-    env: .env
-    dockerfilePath: ./backend/api/Dockerfile
-    plan: starter
-    dependencies:
-      - rdbms
+    type: web
+    buildCommand: docker-compose build api-service
+    startCommand: docker-compose up api-service
+    healthCheckPath: / # Adjust this according to your application
+    env:
+      - key: ENV
+        value: ${ENV}
 
   - name: movie-service
-    env: .env
-    dockerfilePath: ./backend/movie/Dockerfile
-    plan: starter
-    dependencies:
-      - rdbms
+    type: web
+    buildCommand: docker-compose build movie-service
+    startCommand: docker-compose up movie-service
+    healthCheckPath: / # Adjust this according to your application
+    env:
+      - key: ENV
+        value: ${ENV}
 
   - name: user-service
-    env: .env
-    dockerfilePath: ./backend/user/Dockerfile
-    plan: starter
-    dependencies:
-      - rdbms
+    type: web
+    buildCommand: docker-compose build user-service
+    startCommand: docker-compose up user-service
+    healthCheckPath: / # Adjust this according to your application
+    env:
+      - key: ENV
+        value: ${ENV}
 
   - name: frontend
-    dockerfilePath: ./frontend/Dockerfile
-    plan: starter
-    ports:
-      - 3000
-    dependencies:
-      - api-gateway
+    type: web
+    buildCommand: docker-compose build frontend
+    startCommand: docker-compose up frontend
+    healthCheckPath: / # Adjust this according to your application
 
-addons:
-  - name: network
-    type: network
-    config:
-      driver: bridge
+databases:
+  - name: rdbms
+    memory: 512M # Adjust based on your database requirements
+    env:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: nathabit_db # Provide your MySQL database name
+      - key: MYSQL_USER
+        value: nathabit_db_user # Provide your MySQL user
+      - key: nathabit@123
+        generateValue: true
