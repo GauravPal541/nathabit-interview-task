@@ -1,0 +1,72 @@
+services:
+  - name: rdbms
+    env: .env
+    image: mysql:latest
+    plan: starter
+    ports:
+      - 3310
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - source: ./backend/data
+        destination: /var/lib/mysql
+    healthCheck:
+      httpGet:
+        path: /healthcheck
+        port: 3306
+      intervalSeconds: 10
+      timeoutSeconds: 5
+
+  - name: api-gateway
+    env: .env
+    dockerfilePath: ./backend/gateway/Dockerfile
+    plan: starter
+    ports:
+      - 80
+    dependencies:
+      - rdbms
+
+  - name: auth-service
+    env: .env
+    dockerfilePath: ./backend/auth/Dockerfile
+    plan: starter
+    dependencies:
+      - rdbms
+
+  - name: api-service
+    env: .env
+    dockerfilePath: ./backend/api/Dockerfile
+    plan: starter
+    dependencies:
+      - rdbms
+
+  - name: movie-service
+    env: .env
+    dockerfilePath: ./backend/movie/Dockerfile
+    plan: starter
+    dependencies:
+      - rdbms
+
+  - name: user-service
+    env: .env
+    dockerfilePath: ./backend/user/Dockerfile
+    plan: starter
+    dependencies:
+      - rdbms
+
+  - name: frontend
+    dockerfilePath: ./frontend/Dockerfile
+    plan: starter
+    ports:
+      - 3000
+    dependencies:
+      - api-gateway
+
+addons:
+  - name: network
+    type: network
+    config:
+      driver: bridge

@@ -1,6 +1,4 @@
-/**
- * UserService Class
- */
+
 
 const Service = require("./Service");
 const bcrypt = require("bcrypt");
