@@ -25,6 +25,9 @@ elseif res.status == 204 then
     ngx.exit(res.status)
 else
     -- local response = "{'status':" .. res.status .. ", 'message':" .. res.message .. "}"
+    ngx.header["Access-Control-Allow-Methods"] = res.header["Access-Control-Allow-Methods"]
+    ngx.header["Access-Control-Allow-Origin"] = res.header["Access-Control-Allow-Origin"]
+    ngx.header["Access-Control-Allow-Headers"] = res.header["Access-Control-Allow-Headers"]
     ngx.header.content_type = res.header["Content-Type"]
     ngx.status = res.status
     ngx.say(res.body)

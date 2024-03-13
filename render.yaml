@@ -1,6 +1,6 @@
 services:
   - name: rdbms
-    type: database
+    type: web
     env:
       - key: MYSQL_ROOT_PASSWORD
         generateValue: true

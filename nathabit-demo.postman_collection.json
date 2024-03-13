@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "5872e04f-619c-4876-a24e-7b5b02d377c8",
+		"name": "nathabit-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16955238",
+		"_collection_link": "https://blue-flare-957672.postman.co/workspace/hellogeo~8371d890-eb63-4bae-809e-776e49960bc9/collection/16955238-5872e04f-619c-4876-a24e-7b5b02d377c8?action=share&source=collection_link&creator=16955238"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\" :\"Gaurav\",\n    \"lastName\" : \"Pal\",\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/auth/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\" :\"Gaurav\",\n    \"lastName\" : \"Pal\",\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/api/v1/auth/user/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"user",
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "400 BAD REQUEST",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"firstName\" :\"Gaurav\",\n    \"lastName\" : \"Pal\",\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/api/v1/auth/user/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"user",
+										"register"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/auth/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/api/v1/auth/user/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"user",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "401 Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"gauravpal541@gmail.com\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/api/v1/auth/user/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"user",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "Get List of movies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "at",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhdXJhdnBhbDU0MUBnbWFpbC5jb20iLCJpYXQiOjE3MTAxMDI3NzAsImV4cCI6MTcxMDEwNjM3MH0.Jyu1UhMABERYhF74lpEbMqyouIlDLjchHLvsgmBu94U",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/v1/movie",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n        {\n            \"Title\": \"Harry Potter and the Deathly Hallows: Part 2\",\n            \"Year\": \"2011\",\n            \"imdbID\": \"tt1201607\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Sorcerer's Stone\",\n            \"Year\": \"2001\",\n            \"imdbID\": \"tt0241527\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BNmQ0ODBhMjUtNDRhOC00MGQzLTk5MTAtZDliODg5NmU5MjZhXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Chamber of Secrets\",\n            \"Year\": \"2002\",\n            \"imdbID\": \"tt0295297\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMjE0YjUzNDUtMjc5OS00MTU3LTgxMmUtODhkOThkMzdjNWI4XkEyXkFqcGdeQXVyMTA3MzQ4MTc0._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Prisoner of Azkaban\",\n            \"Year\": \"2004\",\n            \"imdbID\": \"tt0304141\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMTY4NTIwODg0N15BMl5BanBnXkFtZTcwOTc0MjEzMw@@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Goblet of Fire\",\n            \"Year\": \"2005\",\n            \"imdbID\": \"tt0330373\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMTI1NDMyMjExOF5BMl5BanBnXkFtZTcwOTc4MjQzMQ@@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Order of the Phoenix\",\n            \"Year\": \"2007\",\n            \"imdbID\": \"tt0373889\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BOTA3MmRmZDgtOWU1Ny00ZDc5LWFkN2YtNzNlY2UxZmY0N2IyXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Deathly Hallows: Part 1\",\n            \"Year\": \"2010\",\n            \"imdbID\": \"tt0926084\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Harry Potter and the Half-Blood Prince\",\n            \"Year\": \"2009\",\n            \"imdbID\": \"tt0417741\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BNzU3NDg4NTAyNV5BMl5BanBnXkFtZTcwOTg2ODg1Mg@@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"When Harry Met Sally...\",\n            \"Year\": \"1989\",\n            \"imdbID\": \"tt0098635\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_SX300.jpg\"\n        },\n        {\n            \"Title\": \"Dirty Harry\",\n            \"Year\": \"1971\",\n            \"imdbID\": \"tt0066999\",\n            \"Type\": \"movie\",\n            \"Poster\": \"https://m.media-amazon.com/images/M/MV5BMzdhMTM2YTItOWU2YS00MTM0LTgyNDYtMDM1OWM3NzkzNTM2XkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg\"\n        }\n    ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3012/api/v1/movie/bulk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3012",
+							"path": [
+								"api",
+								"v1",
+								"movie",
+								"bulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetching movies from omDB",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://www.omdbapi.com/?s=harry&apikey=886c9de5&type=movie",
+							"protocol": "http",
+							"host": [
+								"www",
+								"omdbapi",
+								"com"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "s",
+									"value": "harry"
+								},
+								{
+									"key": "apikey",
+									"value": "886c9de5"
+								},
+								{
+									"key": "type",
+									"value": "movie"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark as favourite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "at",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhdXJhdnBhbDU0MUBnbWFpbC5jb20iLCJpZCI6MSwiaWF0IjoxNzEwMTM1MjA5LCJleHAiOjE3MTAxMzg4MDl9.Mxq2UzVzYTe-cI0_wbRTzsafEK5J1q9GY6Iml7i_6fg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : 1,\n    \"movieId\" : 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/movie/favourite",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"movie",
+								"favourite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like movie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : 1,\n    \"movieId\" : 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/v1/movie/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"v1",
+								"movie",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
